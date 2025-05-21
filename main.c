@@ -1,8 +1,59 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+struct ABC { 
+float AkumulasiKgSayurA;
+float AkumulasiKgSayurB;
+float AkumulasiKgSayurC;
+float AkumulasiBuahSayurA;
+float AkumulasiBuahSayurB;
+float AkumulasiBuahSayurC;
+float AkumulasiKgBerasA;
+float AkumulasiKgBerasB;
+float AkumulasiKgBerasC;
+float AkumulasiKrgBerasA;
+float AkumulasiKrgBerasB;
+float AkumulasiKrgBerasC;
+float AkumulasiKgDagingA;
+float AkumulasiKgDagingB;
+float AkumulasiKgDagingC;
+float AkumulasiKgSnackA;
+float AkumulasiKgSnackB;
+float AkumulasiKgSnackC;
+float AkumulasiPcsSnackA;
+float AkumulasiPcsSnackB;    
+float AkumulasiPcsSnackC;
+float AkumulasiKgSupleA;
+float AkumulasiKgSupleB;       
+float AkumulasiKgSupleC;
+float AkumulasiSctSupleA;
+float AkumulasiSctSupleB;
+float AkumulasiSctSupleC;
+}; 
+struct sisa { 
+float SisaBerasA; 
+float SisaBerasB;   
+float SisaBerasC; 
+float SisaSnackA;
+float SisaSnackB;
+float SisaSnackC;
+float SisaDagingA;
+float SisaDagingB;
+float SisaDagingC;
+float SisaSupleA;
+float SisaSupleB;
+float SisaSupleC;
+float SisaSayurA; 
+float SisaSayurB; 
+float SisaSayurC; 
+};
+
+struct ABCOrang { 
+ int orangA; 
+ int orangB;
+ int orangC;
+};
 
 struct Namabarang { 
     char namaberas[50]; 
@@ -11,7 +62,8 @@ struct Namabarang {
     char namahewan [50]; 
     char namasayur [50];
 };
- struct BerasBahanbaku  { 
+
+struct BerasBahanbaku  { 
     float jumlahKgberas; 
     int jumlahBuahberas; 
 };
@@ -48,6 +100,9 @@ struct Donasi{
     struct OlahanHewan daging;
     struct SayurdanBuah sayur;
     struct Namabarang ItemName;
+    struct ABC Bagi; 
+    struct sisa Sisa;
+
 };
 
 typedef struct {
@@ -85,6 +140,7 @@ struct Donatur {
     char nomorkependudukan[20];
     int kodetelepon;
     struct Donasi Brgdonasi;
+    struct ABCOrang org;
 };
 
 struct KodeTeleponBenua *Mengkopidaftar(struct KodeTeleponBenua *Benuaasalkamu, int jumlah) {
@@ -148,7 +204,16 @@ void mosthunger(NegaraAfrika *data, int *Tertinggi1, int *Tertinggi2, int *Terti
     int T1, T2, T3;
 
 
-    printf("Donasi kamu akan disumbangkan ke negara: %s, %s, %s \n",data[*Tertinggi1].nama,data[*Tertinggi2].nama,data[*Tertinggi3].nama);
+  
+}
+
+void inisialisasiABC(struct ABC *data) {
+    memset(data, 0, sizeof(struct ABC));
+}
+
+
+void inisialisasiSisa(struct sisa *data) {
+    memset(data, 0, sizeof(struct sisa));
 }
 
 
@@ -257,6 +322,7 @@ struct Donatur *donatur = malloc(Donaturloop * sizeof(struct Donatur));
 
 
 for (int i=0;i<Donaturloop;i++) {
+    
 donatur[i].Brgdonasi.beras.jumlahKgberas = 0;
 donatur[i].Brgdonasi.beras.jumlahBuahberas = 0;
 donatur[i].Brgdonasi.snack.jumlahKgsnack = 0;
@@ -266,6 +332,7 @@ donatur[i].Brgdonasi.suple.jumlahBuahsuple = 0;
 donatur[i].Brgdonasi.daging.jumlahKgdaging = 0;
 donatur[i].Brgdonasi.sayur.jumlahKgsayur = 0;
 donatur[i].Brgdonasi.sayur.jumlahBuahsayur = 0;
+
 printf("\n----------------------------------\n");
 printf("Kamu adalah Donatur ke -%d \n",i+1);
 
@@ -610,252 +677,279 @@ int tigadigitID = digit1 * 100 + digit2 * 10 + digit3;
 
 printf("Kode Pengiriman donatur ke %d:%s \n",i+1,kodePengiriman);
 
-int Tertinggi1 = 0, Tertinggi2 = 1, Tertinggi3 = 2;
 
 
 
+}
 
-
-  
- 
- 
-
-     
-mosthunger(data, &Tertinggi1, &Tertinggi2, &Tertinggi3);    
-
+ int Tertinggi1 = 0, Tertinggi2 = 1, Tertinggi3 = 2;
+      
+ mosthunger(data, &Tertinggi1, &Tertinggi2, &Tertinggi3); 
+ printf("Donasi kamu akan disumbangkan ke negara: %s, %s, %s \n",data[Tertinggi1].nama,data[Tertinggi2].nama,data[Tertinggi3].nama);
  
  float wargalaper_A=data[Tertinggi1].kelaparan_juta*1000000;
  float wargalaper_B=data[Tertinggi2].kelaparan_juta*1000000;
  float wargalaper_C=data[Tertinggi2].kelaparan_juta*1000000;
- 
- int orang_A=0; 
- int orang_B=0;
- int orang_C=0;
 
-float KgBerasA = donatur[i].Brgdonasi.beras.jumlahKgberas * persentase_A;
-float KgBerasB = donatur[i].Brgdonasi.beras.jumlahKgberas * persentase_B;
-float KgBerasC =  donatur[i].Brgdonasi.beras.jumlahKgberas * persentase_C;
+for (int i=0;i<Donaturloop;i++) { 
+donatur[i].org.orangA=0; 
+donatur[i].org.orangB=0; 
+donatur[i].org.orangC=0; 
+
+donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasA = donatur[i].Brgdonasi.beras.jumlahKgberas * persentase_A;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasB = donatur[i].Brgdonasi.beras.jumlahKgberas * persentase_B;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasC =  donatur[i].Brgdonasi.beras.jumlahKgberas * persentase_C;
    
-float KrgBerasA = donatur[i].Brgdonasi.beras.jumlahBuahberas * persentase_A;
-float KrgBerasB = donatur[i].Brgdonasi.beras.jumlahBuahberas* persentase_B;
-float KrgBerasC =  donatur[i].Brgdonasi.beras.jumlahBuahberas* persentase_C;            
+donatur[i].Brgdonasi.Bagi.AkumulasiKrgBerasA = donatur[i].Brgdonasi.beras.jumlahBuahberas * persentase_A;
+donatur[i].Brgdonasi.Bagi.AkumulasiKrgBerasB= donatur[i].Brgdonasi.beras.jumlahBuahberas* persentase_B;
+donatur[i].Brgdonasi.Bagi.AkumulasiKrgBerasC =  donatur[i].Brgdonasi.beras.jumlahBuahberas* persentase_C;            
     if(donatur[i].Brgdonasi.ItemName.namaberas[0] !='\0') {
         
-     KgBerasA += KrgBerasA*5;
-     orang_A += (int)KgBerasA; 
-    float sisa_A = KgBerasA - orang_A;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasA  += donatur[i].Brgdonasi.Bagi.AkumulasiKrgBerasA*5;
+int temp = (int)donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasA ;  
+donatur[i].org.orangA += temp;
+donatur[i].Brgdonasi.Sisa.SisaBerasA += donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasA  - temp;
 
-    if (sisa_A >= 0.5) {
-        orang_A += 1;
+if (donatur[i].Brgdonasi.Sisa.SisaBerasA >= 0.5) {
+    donatur[i].org.orangA+= 1;
      
     }
-    wargalaper_A -= orang_A;
-    
-     KgBerasB += KrgBerasB*5;
-     orang_B += (int)KgBerasB;
-    float sisa_B = KgBerasB - orang_B;
+wargalaper_A -= donatur[i].org.orangA;
 
-    if (sisa_B >= 0.5) {
-        orang_B += 1;
-    }
-    wargalaper_B-=orang_B;
-    
-     KgBerasC+=KrgBerasC*5;
-     orang_C += (int)KgBerasC;
-    float sisa_C = KgBerasC - orang_C;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasB  += donatur[i].Brgdonasi.Bagi.AkumulasiKrgBerasB*5;
+int temp2 = (int)donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasB;   
+donatur[i].org.orangB += temp2;
+donatur[i].Brgdonasi.Sisa.SisaBerasB += donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasB  - temp2;
 
-    if (sisa_C >= 0.5) {
-        orang_C += 1;
+if (donatur[i].Brgdonasi.Sisa.SisaBerasB >= 0.5) {
+    donatur[i].org.orangB+= 1;
+     
     }
-    wargalaper_C-=orang_C;
+wargalaper_B -= donatur[i].org.orangB;
+    
+
+int temp3= (int)donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasC ; 
+donatur[i].org.orangC+=temp3;
+donatur[i].Brgdonasi.Sisa.SisaBerasC += donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasC  - temp3;
+
+if (donatur[i].Brgdonasi.Sisa.SisaBerasC >= 0.5) {
+    donatur[i].org.orangC+= 1;
+     
+    }
+wargalaper_C -= donatur[i].org.orangC;
+  
+    }
+
+donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackA = donatur[i].Brgdonasi.snack.jumlahKgsnack * persentase_A;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackB = donatur[i].Brgdonasi.snack.jumlahKgsnack * persentase_B;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackC = donatur[i].Brgdonasi.snack.jumlahKgsnack * persentase_C;
+
+donatur[i].Brgdonasi.Bagi.AkumulasiPcsSnackA = donatur[i].Brgdonasi.snack.jumlahBuahsnack * persentase_A;
+donatur[i].Brgdonasi.Bagi.AkumulasiPcsSnackB = donatur[i].Brgdonasi.snack.jumlahBuahsnack * persentase_B;
+donatur[i].Brgdonasi.Bagi.AkumulasiPcsSnackC = donatur[i].Brgdonasi.snack.jumlahBuahsnack * persentase_C;
+
+if (donatur[i].Brgdonasi.ItemName.namasnack[0] != '\0') {
+    float snack_per_orang = 0.07;
+    
+
+    donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackA += 0.07 * donatur[i].Brgdonasi.Bagi.AkumulasiPcsSnackA;
+    donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackB += 0.07 * donatur[i].Brgdonasi.Bagi.AkumulasiPcsSnackB;
+    donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackC += 0.07 * donatur[i].Brgdonasi.Bagi.AkumulasiPcsSnackC;
+    
+int temp1 = (int)(donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackA / snack_per_orang);
+ donatur[i].org.orangA += temp1;
+donatur[i].Brgdonasi.Sisa.SisaSnackA += donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackA - (temp1 * snack_per_orang);
+if (donatur[i].Brgdonasi.Sisa.SisaSnackA >= snack_per_orang / 2) {
+    donatur[i].org.orangA += 1;
 }
 
-float KgSnackA = donatur[i].Brgdonasi.snack.jumlahKgsnack * persentase_A;
-float KgSnackB = donatur[i].Brgdonasi.snack.jumlahKgsnack * persentase_B;
-float KgSnackC =  donatur[i].Brgdonasi.snack.jumlahKgsnack * persentase_C;  
-                
-float PcsSnackA = donatur[i].Brgdonasi.snack.jumlahBuahsnack  * persentase_A;
-float PcsSnackB = donatur[i].Brgdonasi.snack.jumlahBuahsnack * persentase_B;
-float PcsSnackC =  donatur[i].Brgdonasi.snack.jumlahBuahsnack  * persentase_C;
+int temp2 = (int)(donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackB / snack_per_orang);
+ donatur[i].org.orangB += temp2;
+donatur[i].Brgdonasi.Sisa.SisaSnackB += donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackB - (temp2 * snack_per_orang);
+if (donatur[i].Brgdonasi.Sisa.SisaSnackB >= snack_per_orang / 2) {
+    donatur[i].org.orangB += 1;
+}
 
-  if(donatur[i].Brgdonasi.ItemName.namasnack[0] !='\0')
-  {
-  float snack_per_orang = 0.07;
-  KgSnackA+=0.07*PcsSnackA;
-  int orang_ASnack=(int)(KgSnackA/ snack_per_orang);
-  orang_A += orang_ASnack;
-  float sisa_A = KgSnackA - (orang_ASnack  *  snack_per_orang);
 
-    if (sisa_A >=  snack_per_orang / 2) {
-       orang_A += 1;
+int temp3 = (int)(donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackC / snack_per_orang);
+ donatur[i].org.orangC += temp3;
+donatur[i].Brgdonasi.Sisa.SisaSnackC += donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackC - (temp3 * snack_per_orang);
+if (donatur[i].Brgdonasi.Sisa.SisaSnackC >= snack_per_orang / 2) {
+    donatur[i].org.orangC += 1;
+ }
+}
+
+donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleA = donatur[i].Brgdonasi.suple.jumlahKgsuple * persentase_A;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleB = donatur[i].Brgdonasi.suple.jumlahKgsuple * persentase_B;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleC = donatur[i].Brgdonasi.suple.jumlahKgsuple * persentase_C;
+
+donatur[i].Brgdonasi.Bagi.AkumulasiSctSupleA = donatur[i].Brgdonasi.suple.jumlahBuahsuple * persentase_A;
+donatur[i].Brgdonasi.Bagi.AkumulasiSctSupleB = donatur[i].Brgdonasi.suple.jumlahBuahsuple * persentase_B;
+donatur[i].Brgdonasi.Bagi.AkumulasiSctSupleC = donatur[i].Brgdonasi.suple.jumlahBuahsuple * persentase_C;
+
+if (donatur[i].Brgdonasi.ItemName.namasuple[0] != '\0') {
+    float suple_per_orang = 0.04;
+
+    donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleA += 0.04 * donatur[i].Brgdonasi.Bagi.AkumulasiSctSupleA;
+    donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleB += 0.04 * donatur[i].Brgdonasi.Bagi.AkumulasiSctSupleB;
+    donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleC += 0.04 * donatur[i].Brgdonasi.Bagi.AkumulasiSctSupleC;
+int temp1 = (int)(donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleA / suple_per_orang);
+    donatur[i].org.orangA += temp1;
+    donatur[i].Brgdonasi.Sisa.SisaSupleA += donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleA - (temp1* suple_per_orang);
+    if (donatur[i].Brgdonasi.Sisa.SisaSupleA >= suple_per_orang / 2) {
+        donatur[i].org.orangA += 1;
     }
-   KgSnackB+=0.07*PcsSnackB;    
-   int orang_BSnack=(int)(KgSnackB/ snack_per_orang);
-  orang_B += orang_BSnack;
-  float sisa_B = KgSnackB - (orang_BSnack  *  snack_per_orang);
-
-    if (sisa_B >=  snack_per_orang / 2) {
-       orang_B += 1;
+int temp2 = (int)(donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleB / suple_per_orang);
+    donatur[i].org.orangB += temp2;
+    donatur[i].Brgdonasi.Sisa.SisaSupleB += donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleB - (temp2 * suple_per_orang);
+    if (donatur[i].Brgdonasi.Sisa.SisaSupleB >= suple_per_orang / 2) {
+        donatur[i].org.orangB += 1;
     }
-   KgSnackC+=0.07*PcsSnackC;     
-   int orang_CSnack=(int)(KgSnackC/ snack_per_orang);
-  orang_C += orang_CSnack;
-  float sisa_C = KgSnackC - (orang_CSnack  *  snack_per_orang);
-
-    if (sisa_C >=  snack_per_orang / 2) {
-       orang_C += 1;
+int temp3 = (int)(donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleC / suple_per_orang);
+    donatur[i].org.orangC += temp3;
+    donatur[i].Brgdonasi.Sisa.SisaSupleC += donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleC - (temp3 * suple_per_orang);
+    if (donatur[i].Brgdonasi.Sisa.SisaSupleC >= suple_per_orang / 2) {
+        donatur[i].org.orangC += 1;
     }
-}    
-float KgSupleA = donatur[i].Brgdonasi.suple.jumlahKgsuple * persentase_A;
-float KgSupleB = donatur[i].Brgdonasi.suple.jumlahKgsuple * persentase_B;
-float KgSupleC=  donatur[i].Brgdonasi.suple.jumlahKgsuple * persentase_C;
-    
-float SctSupleA = donatur[i].Brgdonasi.suple.jumlahBuahsuple   * persentase_A;
-float SctSupleB = donatur[i].Brgdonasi.suple.jumlahBuahsuple  * persentase_B;
-float SctSupleC = donatur[i].Brgdonasi.suple.jumlahBuahsuple   * persentase_C;
-                 
-       if(donatur[i].Brgdonasi.ItemName.namasuple[0] !='\0') {              
-          float suple_per_orang = 0.04;
-  KgSupleA+=0.04*SctSupleA;
-  int orang_ASuple=(int)(KgSupleA/ suple_per_orang);
-  orang_A += orang_ASuple;
-  float sisa_A =KgSupleA - (orang_ASuple  *  suple_per_orang);
+}
 
-    if (sisa_A >=  suple_per_orang / 2) {
-       orang_A += 1;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgDagingA = donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_A;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgDagingB = donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_B;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgDagingC = donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_C;
+
+if (donatur[i].Brgdonasi.ItemName.namahewan[0] != '\0') {
+    float daging_per_orang = 0.4;
+
+int temp1 = (int)(donatur[i].Brgdonasi.Bagi.AkumulasiKgDagingA / daging_per_orang);
+    donatur[i].org.orangA += temp1;
+    donatur[i].Brgdonasi.Sisa.SisaDagingA += donatur[i].Brgdonasi.Bagi.AkumulasiKgDagingA - (temp1 * daging_per_orang);
+    if (donatur[i].Brgdonasi.Sisa.SisaDagingA >= daging_per_orang / 2) {
+        donatur[i].org.orangA += 1;
     }
-    
-  KgSupleB+=0.04*SctSupleB;
-  int orang_BSuple=(int)(KgSupleB/ suple_per_orang);
-  orang_B += orang_BSuple;
-  float sisa_B =KgSupleB - (orang_BSuple  *  suple_per_orang);
-
-    if (sisa_B >=  suple_per_orang / 2) {
-       orang_B += 1;
+int temp2 = (int)(donatur[i].Brgdonasi.Bagi.AkumulasiKgDagingB / daging_per_orang);
+    donatur[i].org.orangB += temp2;
+    donatur[i].Brgdonasi.Sisa.SisaDagingB += donatur[i].Brgdonasi.Bagi.AkumulasiKgDagingB - (temp2 * daging_per_orang);
+    if (donatur[i].Brgdonasi.Sisa.SisaDagingB >= daging_per_orang / 2) {
+        donatur[i].org.orangB += 1;
     }
-    
-   KgSupleC+=0.04*SctSupleC;
-  int orang_CSuple=(int)(KgSupleC/ suple_per_orang);
-  orang_C += orang_CSuple;
-  float sisa_C =KgSupleC - (orang_CSuple  *  suple_per_orang);
-
-    if (sisa_C>=  suple_per_orang / 2) {
-       orang_C += 1;
+int temp3 = (int)(donatur[i].Brgdonasi.Bagi.AkumulasiKgDagingC / daging_per_orang);
+    donatur[i].org.orangC += temp3;
+    donatur[i].Brgdonasi.Sisa.SisaDagingC += donatur[i].Brgdonasi.Bagi.AkumulasiKgDagingC - (temp3 * daging_per_orang);
+    if (donatur[i].Brgdonasi.Sisa.SisaDagingC >= daging_per_orang / 2) {
+        donatur[i].org.orangC += 1;
     }
-}            
-        
-float KgDagingA = donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_A;
-float KgDagingB = donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_B;
-float KgDagingC =  donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_C;
-                
-                
-                  if(donatur[i].Brgdonasi.ItemName.namahewan[0] !='\0') {              
-          float daging_per_orang = 0.4;
-  int orang_ADaging=(int)(KgDagingA/ daging_per_orang);
-  orang_A += orang_ADaging;
-  float sisa_A =KgDagingA - (orang_ADaging  *daging_per_orang);
+}
 
-    if (sisa_A >=  daging_per_orang / 2) {
-       orang_A += 1;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurA = donatur[i].Brgdonasi.sayur.jumlahKgsayur * persentase_A;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurB = donatur[i].Brgdonasi.sayur.jumlahKgsayur * persentase_B;
+donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurC = donatur[i].Brgdonasi.sayur.jumlahKgsayur * persentase_C;
+
+donatur[i].Brgdonasi.Bagi.AkumulasiBuahSayurA = donatur[i].Brgdonasi.sayur.jumlahBuahsayur * persentase_A;
+donatur[i].Brgdonasi.Bagi.AkumulasiBuahSayurB = donatur[i].Brgdonasi.sayur.jumlahBuahsayur * persentase_B;
+donatur[i].Brgdonasi.Bagi.AkumulasiBuahSayurC = donatur[i].Brgdonasi.sayur.jumlahBuahsayur * persentase_C;
+
+if (donatur[i].Brgdonasi.ItemName.namasayur[0] != '\0') {
+    float sayur_per_orang = 0.15;
+
+    donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurA += 0.15 * donatur[i].Brgdonasi.Bagi.AkumulasiBuahSayurA;
+    donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurB += 0.15 * donatur[i].Brgdonasi.Bagi.AkumulasiBuahSayurB;
+    donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurC += 0.15 * donatur[i].Brgdonasi.Bagi.AkumulasiBuahSayurC;
+int temp1 = (int)(donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurA / sayur_per_orang);
+    donatur[i].org.orangA += temp1; 
+    donatur[i].Brgdonasi.Sisa.SisaSayurA += donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurA - (temp1 * sayur_per_orang);
+    if (donatur[i].Brgdonasi.Sisa.SisaSayurA >= sayur_per_orang / 2) {
+        donatur[i].org.orangA += 1;
     }
-    
- int orang_BDaging=(int)(KgDagingB/ daging_per_orang);
-  orang_B += orang_BDaging;
-  float sisa_B =KgDagingB - (orang_BDaging  *daging_per_orang);
-
-    if (sisa_B >=  daging_per_orang / 2) {
-       orang_B += 1;
+int temp2 = (int)(donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurB / sayur_per_orang);
+    donatur[i].org.orangB += temp2;
+    donatur[i].Brgdonasi.Sisa.SisaSayurB += donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurB - (temp2 * sayur_per_orang);
+    if (donatur[i].Brgdonasi.Sisa.SisaSayurB >= sayur_per_orang / 2) {
+        donatur[i].org.orangB += 1;
     }
-    
-    
-     
- int orang_CDaging=(int)(KgDagingC/ daging_per_orang);
-  orang_C += orang_CDaging;
-  float sisa_C =KgDagingC - (orang_CDaging  *daging_per_orang);
-
-    if (sisa_C >=  daging_per_orang / 2) {
-       orang_C += 1;
+int temp3 = (int)(donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurC / sayur_per_orang);
+    donatur[i].org.orangC += temp3;
+    donatur[i].Brgdonasi.Sisa.SisaSayurC += donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurC - (donatur[i].org.orangC * sayur_per_orang);
+    if (donatur[i].Brgdonasi.Sisa.SisaSayurC >= sayur_per_orang / 2) {
+        donatur[i].org.orangC += 1;
     }
-}            
-         
-float KgSayurA = donatur[i].Brgdonasi.sayur.jumlahKgsayur   * persentase_A;
-float KgSayurB = donatur[i].Brgdonasi.sayur.jumlahKgsayur  * persentase_B;
-float KgSayurC = donatur[i].Brgdonasi.sayur.jumlahKgsayur  * persentase_C;                
-          
-float BuahSayurA = donatur[i].Brgdonasi.sayur.jumlahBuahsayur  * persentase_A;
-float BuahSayurB = donatur[i].Brgdonasi.sayur.jumlahBuahsayur  * persentase_B;
-float BuahSayurC = donatur[i].Brgdonasi.sayur.jumlahBuahsayur * persentase_C;   
-                 
-                  if(donatur[i].Brgdonasi.ItemName.namasayur[0] !='\0'){
-                           float sayur_per_orang = 0.15;
-  KgSayurA+=0.15*BuahSayurA;
-  int orang_ASayur=(int)(KgSayurA/ sayur_per_orang);
-  orang_A += orang_ASayur;
-  float sisa_A =KgSayurA - (orang_ASayur  *  sayur_per_orang);
-
-    if (sisa_A >=  sayur_per_orang / 2) {
-       orang_A += 1;
-    }
-    
-   KgSayurB+=0.15*BuahSayurB;
-  int orang_BSayur=(int)(KgSayurB/ sayur_per_orang);
-  orang_B += orang_BSayur;
-  float sisa_B =KgSayurB - (orang_BSayur  *  sayur_per_orang);
-
-    if (sisa_B >=  sayur_per_orang / 2) {
-       orang_B += 1;
-    }
-    
-   
-   KgSayurC+=0.15*BuahSayurC;
-  int orang_CSayur=(int)(KgSayurC/ sayur_per_orang);
-  orang_C += orang_CSayur;
-  float sisa_C =KgSayurC - (orang_CSayur  *  sayur_per_orang);
-
-    if (sisa_C >=  sayur_per_orang / 2) {
-       orang_C += 1;
-    }
-
+}
 
 printf("Rincian donasi: \n"); 
 printf("===============\n"); 
 printf("Donasi ke %s \n",data[Tertinggi1].nama); 
-if(donatur[i].Brgdonasi.ItemName.namaberas[0] !='\0')
- {
-    if (donatur[i].Brgdonasi.beras.jumlahKgberas > 0 || donatur[i].Brgdonasi.beras.jumlahBuahberas > 0 ) {
-                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namaberas,KgBerasA); }
- }
- if(donatur[i].Brgdonasi.ItemName.namasnack[0] !='\0')
- {
-    if (donatur[i].Brgdonasi.snack.jumlahKgsnack > 0 || donatur[i].Brgdonasi.snack.jumlahBuahsnack > 0 ) {
-                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasnack,KgSnackA); }
- }
- }
- if(donatur[i].Brgdonasi.ItemName.namasuple[0] !='\0')
- {
-    if (donatur[i].Brgdonasi.suple.jumlahKgsuple > 0 || donatur[i].Brgdonasi.suple.jumlahBuahsuple > 0 ) {
-                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasuple,KgSupleA); }
- }
-if(donatur[i].Brgdonasi.ItemName.namahewan[0] !='\0')
- {
-     if (donatur[i].Brgdonasi.daging.jumlahKgdaging > 0) {
-                printf("Jumlah (Kg) %s: %.2lf",donatur[i].Brgdonasi.ItemName.namahewan,KgDagingA); }
- }
- if(donatur[i].Brgdonasi.ItemName.namasayur[0] !='\0')
- {
-    if (donatur[i].Brgdonasi.sayur.jumlahKgsayur > 0) {
-                printf("Jumlah (Kg) %s: %.2lf",donatur[i].Brgdonasi.ItemName.namasayur,KgSayurA); }
-          
- }
-data[Tertinggi1].kelaparan_juta=orang_A / 1000000;
-data[Tertinggi2].kelaparan_juta=orang_B / 1000000;
-data[Tertinggi3].kelaparan_juta=orang_C / 1000000;
+if (donatur[i].Brgdonasi.ItemName.namaberas[0] != '\0') {
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namaberas,donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasA);
+}
+if (donatur[i].Brgdonasi.ItemName.namasnack[0] != '\0')  {
+    
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasnack,donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackA); 
+}
+if (donatur[i].Brgdonasi.ItemName.namasuple[0] != '\0') {
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasuple,donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleA); 
+}
+if (donatur[i].Brgdonasi.ItemName.namahewan[0] != '\0') {
+
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namahewan,donatur[i].Brgdonasi.Bagi.AkumulasiKgDagingA); 
+}
+if (donatur[i].Brgdonasi.ItemName.namasayur[0] != '\0') {
+
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasayur,donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurA);
+}
+
+printf("\n");
+
+printf("Donasi ke %s \n",data[Tertinggi2].nama); 
+if (donatur[i].Brgdonasi.ItemName.namaberas[0] != '\0') {
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namaberas,donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasB);
+}
+if (donatur[i].Brgdonasi.ItemName.namasnack[0] != '\0')  {
+    
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasnack,donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackB); 
+}
+if (donatur[i].Brgdonasi.ItemName.namasuple[0] != '\0') {
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasuple,donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleB); 
+}
+if (donatur[i].Brgdonasi.ItemName.namahewan[0] != '\0') {
+
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namahewan,donatur[i].Brgdonasi.Bagi.AkumulasiKgDagingB); 
+}
+if (donatur[i].Brgdonasi.ItemName.namasayur[0] != '\0') {
+
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasayur,donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurB);
+}
+
+printf("\n");
+
+printf("Donasi ke %s \n",data[Tertinggi3].nama); 
+if (donatur[i].Brgdonasi.ItemName.namaberas[0] != '\0') {
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namaberas,donatur[i].Brgdonasi.Bagi.AkumulasiKgBerasC);
+}
+if (donatur[i].Brgdonasi.ItemName.namasnack[0] != '\0')  {
+    
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasnack,donatur[i].Brgdonasi.Bagi.AkumulasiKgSnackC); 
+}
+if (donatur[i].Brgdonasi.ItemName.namasuple[0] != '\0') {
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasuple,donatur[i].Brgdonasi.Bagi.AkumulasiKgSupleC); 
+}
+if (donatur[i].Brgdonasi.ItemName.namahewan[0] != '\0') {
+
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namahewan,donatur[i].Brgdonasi.Bagi.AkumulasiKgDagingC); 
+}
+if (donatur[i].Brgdonasi.ItemName.namasayur[0] != '\0') {
+
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasayur,donatur[i].Brgdonasi.Bagi.AkumulasiKgSayurC);
+}
+
+data[Tertinggi1].kelaparan_juta=wargalaper_A  / 1000000;
+data[Tertinggi2].kelaparan_juta=wargalaper_B  / 1000000;
+data[Tertinggi3].kelaparan_juta=wargalaper_C/ 1000000;
+
+ mosthunger(data, &Tertinggi1, &Tertinggi2, &Tertinggi3); 
   
- };
-    
-    
+ } 
 
 
+    
 free(donatur);
 free(Asia); 
 free(Amerika); 
