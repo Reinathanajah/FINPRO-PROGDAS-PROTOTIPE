@@ -1,6 +1,6 @@
-```c
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 
 
@@ -20,11 +20,11 @@ typedef struct {
     int umur;   
     enum benua Benuaasal;
     char negaraasal[50];
-    int nomorkependudukan[50];
+    char nomorkependudukan[50]; //from int
 } Donatur;
 
 typedef struct {
-    enum benua Benuaasal;
+    //enum benua Benuaasal;
     char nama[50];
     int kodetelepon; 
 }KodeTeleponBenua;
@@ -57,7 +57,7 @@ int main() {
     };
      
   
-KodeTeleponBenua asia[45] = {
+KodeTeleponBenua asia[47] = {
     {"Afghanistan", 93}, {"Armenia", 374}, {"Azerbaijan", 994}, {"Bahrain", 973},
     {"Bangladesh", 880}, {"Bhutan", 975}, {"Brunei", 673}, {"Cambodia", 855},
     {"China", 86}, {"Cyprus", 357}, {"Georgia", 995}, {"India", 91},
@@ -120,20 +120,24 @@ KodeTeleponBenua australia[1] = {
     {"Australia", 61}
 };
 
-KodeTeleponBenua oseania[9] = {
+KodeTeleponBenua oseania[13] = {
     {"Fiji", 679}, {"Kiribati", 686}, {"Marshall Islands", 692}, {"Micronesia", 691},
     {"Nauru", 674}, {"New Zealand", 64}, {"Palau", 680}, {"Papua New Guinea", 675},
     {"Samoa", 685}, {"Solomon Islands", 677}, {"Tonga", 676}, {"Tuvalu", 688},
     {"Vanuatu", 678}
 };
 
-int Donaturloop=0;    
+int DonaturLoop=0;   //fix typo 
 printf("=====ZERO HUNGER FOR AFRICA=====\n"); 
 printf("Jumlah Donatur(Sebutkan jumlah Individu yang ingin mendonasikan):  ");
 scanf("%d",&DonaturLoop);
 getchar(); 
 
 Donatur *donatur = malloc(DonaturLoop * sizeof(Donatur));
+if (donatur == NULL) {
+    printf("Gagal mengalokasikan memori.\n");
+    return 1;
+}
 
 
 for (int i=0;i<DonaturLoop;i++) {
@@ -158,15 +162,15 @@ int umurvalid=0;
 do {
 printf("\n");
 printf("Umur:"); 
-getchar(); 
-scanf("%d",&donatur.umur[i]);
+//getchar(); 
+scanf("%d", &donatur[i].umur); //dari scanf("%d",&donatur.umur[i]);
 
-if(donatur.umur[i]<17&&donatur.umur[i]>0){ 
+if(donatur[i].umur < 17 && donatur[i].umur > 0){
     printf("Maaf , anda belum cukup umur untuk donasi");
-    i++ //break the loop; 
+    continue; //break the loop; 
     
 }
-else if(donatur.umur[i]>=17){umurvalid+=1; }
+else if(donatur[i].umur>=17){umurvalid+=1; }
 else {
     printf("Masukkan umur yang valid");
 }
@@ -177,14 +181,56 @@ printf("Benua asal\n[0]Amerika \n[1]Asia \n[2]Australia \n[3]Afrika \n[4]Eropa \
 scanf("%d",&donatur[i].Benuaasal); 
 getchar(); 
 
-switch(donatur[i].Benuaasal){ 
-    case Amerika: 
-    for(int i=0;i<Asia;i++){ 
-        
-    
-case
-int negaravalid=0;
-do {
+switch(donatur[i].Benuaasal){
+    case Amerika:
+        printf("\nDaftar Negara di Amerika:\n");
+        for (int j = 0; j < 40; j++) {
+            printf(" - %s (Kode: +%d)\n", amerika[j].nama, amerika[j].kodetelepon);
+        }
+        break;
+
+    case Asia:
+        printf("\nDaftar Negara di Asia:\n");
+        for (int j = 0; j < 45; j++) {
+            printf(" - %s (Kode: +%d)\n", asia[j].nama, asia[j].kodetelepon);
+        }
+        break;
+
+    case Australia:
+        printf("\nDaftar Negara di Australia:\n");
+        for (int j = 0; j < 1; j++) {
+            printf(" - %s (Kode: +%d)\n", australia[j].nama, australia[j].kodetelepon);
+        }
+        break;
+
+    case Afrika:
+        printf("\nDaftar Negara di Afrika:\n");
+        for (int j = 0; j < 55; j++) {
+            printf(" - %s (Kode: +%d)\n", afrika[j].nama, afrika[j].kodetelepon);
+        }
+        break;
+
+    case Eropa:
+        printf("\nDaftar Negara di Eropa:\n");
+        for (int j = 0; j < 45; j++) {
+            printf(" - %s (Kode: +%d)\n", eropa[j].nama, eropa[j].kodetelepon);
+        }
+        break;
+
+    case Oseania:
+        printf("\nDaftar Negara di Oseania:\n");
+        for (int j = 0; j < 13; j++) {
+            printf(" - %s (Kode: +%d)\n", oseania[j].nama, oseania[j].kodetelepon);
+        }
+        break;
+
+    default:
+        printf("Benua tidak dikenali.\n");
+}
+
+//case
+//int negaravalid=0;
+//
 
 
     
@@ -193,5 +239,3 @@ do {
     
     return 0; 
 }
-    
-```
