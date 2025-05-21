@@ -685,13 +685,15 @@ printf("Kode Pengiriman donatur ke %d:%s \n",i+1,kodePengiriman);
  int Tertinggi1 = 0, Tertinggi2 = 1, Tertinggi3 = 2;
       
  mosthunger(data, &Tertinggi1, &Tertinggi2, &Tertinggi3); 
- printf("Donasi kamu akan disumbangkan ke negara: %s, %s, %s \n",data[Tertinggi1].nama,data[Tertinggi2].nama,data[Tertinggi3].nama);
+
  
  float wargalaper_A=data[Tertinggi1].kelaparan_juta*1000000;
  float wargalaper_B=data[Tertinggi2].kelaparan_juta*1000000;
  float wargalaper_C=data[Tertinggi2].kelaparan_juta*1000000;
 
 for (int i=0;i<Donaturloop;i++) { 
+ printf("Donatur ke %d, \n",i+1);    
+ printf("Donasi kamu akan disumbangkan ke negara: %s, %s, %s \n",data[Tertinggi1].nama,data[Tertinggi2].nama,data[Tertinggi3].nama);    
 donatur[i].org.orangA=0; 
 donatur[i].org.orangB=0; 
 donatur[i].org.orangC=0; 
@@ -942,7 +944,7 @@ if (donatur[i].Brgdonasi.ItemName.namasayur[0] != '\0') {
 
 data[Tertinggi1].kelaparan_juta=wargalaper_A  / 1000000;
 data[Tertinggi2].kelaparan_juta=wargalaper_B  / 1000000;
-data[Tertinggi3].kelaparan_juta=wargalaper_C/ 1000000;
+data[Tertinggi3].kelaparan_juta=wargalaper_C / 1000000;
 
  mosthunger(data, &Tertinggi1, &Tertinggi2, &Tertinggi3); 
   
